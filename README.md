@@ -7,7 +7,7 @@ FHelpDesk is a full-stack helpdesk solution that integrates with Facebook Messen
 
 ## 🌐 Live Demo
 
-- **Frontend:** [https://fhelpdesk.vercel.app](https://fhelpdesk.vercel.app)
+- **Frontend:** [https://f-help-desk-hfqh.vercel.app/](https://f-help-desk-hfqh.vercel.app/)
 - **Backend:** [https://fhelpdesk.onrender.com](https://fhelpdesk.onrender.com)
 
 > Note: Facebook page integration only works if the app is in **Live Mode** or you are added as a **tester**.
