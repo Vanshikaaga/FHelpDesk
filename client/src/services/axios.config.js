@@ -8,28 +8,20 @@ const instance = axios.create({
 });
 
 // Add a request interceptor to add auth token to all requests
+// utils/axiosInstance.js
 instance.interceptors.request.use(
   (config) => {
-    const isPublicAsset = config.url.includes('manifest.json') ||
-                          config.url.includes('favicon.ico') ||
-                          config.url.includes('logo') ||
-                          config.url.startsWith('http'); // Fully qualified static request
-
-    if (!isPublicAsset) {
-      const userJson = localStorage.getItem('fb_helpdesk_user');
-      if (userJson) {
-        const user = JSON.parse(userJson);
-        if (user && user.token) {
-          config.headers.Authorization = `Bearer ${user.token}`;
-        }
+    const userJson = localStorage.getItem('fb_helpdesk_user');
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      if (user && user.token) {
+        config.headers.Authorization = `Bearer ${user.token}`;
       }
     }
-
     return config;
   },
   (error) => Promise.reject(error)
 );
-
 
 
 // Add a response interceptor to handle common errors
