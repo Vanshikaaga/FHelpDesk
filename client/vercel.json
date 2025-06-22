@@ -1,15 +1,19 @@
 {
   "routes": [
     {
-      "src": "/(manifest\\.json|favicon\\.ico|logo.*\\.png)",
+      "src": "/manifest.json",
       "headers": {
-        "cache-control": "public, max-age=0, must-revalidate"
+        "cache-control": "public, max-age=3600"
       },
-      "dest": "/public/$1"
+      "continue": true
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/favicon.ico",
+      "continue": true
+    },
+    {
+      "src": "/logo.*",
+      "continue": true
     }
   ]
 }
