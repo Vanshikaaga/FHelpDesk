@@ -11,6 +11,26 @@ class FacebookService {
         resolve(window.FB);
         return;
       }
+          if (document.getElementById('facebook-jssdk')) {
+      const interval = setInterval(() => {
+        if (window.FB) {
+          clearInterval(interval);
+          resolve(window.FB);
+        }
+      }, 100);
+      return;
+    }
+
+    // Load SDK script
+    window.fbAsyncInit = () => {
+      window.FB.init({
+        appId: FB_APP_ID,
+        cookie: true,
+        xfbml: true,
+        version: 'v18.0'
+      });
+      resolve(window.FB);
+    };
 
       const script = document.createElement('script');
       script.src = "https://connect.facebook.net/en_US/sdk.js";
