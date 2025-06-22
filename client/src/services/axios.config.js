@@ -1,3 +1,4 @@
+// axios.config.js
 import axios from 'axios';
 
 const instance = axios.create({
@@ -7,17 +8,26 @@ const instance = axios.create({
   },
 });
 
-// Add a request interceptor to add auth token to all requests
-// utils/axiosInstance.js
 instance.interceptors.request.use(
   (config) => {
-    const userJson = localStorage.getItem('fb_helpdesk_user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      if (user && user.token) {
-        config.headers.Authorization = `Bearer ${user.token}`;
+    // ✅ Skip auth for public/static assets like manifest.json, favicon, logos, etc.
+    const isStaticRequest =
+      config.url.includes('manifest.json') ||
+      config.url.includes('favicon') ||
+      config.url.includes('logo') ||
+      config.url.endsWith('.png') ||
+      config.url.endsWith('.ico');
+
+    if (!isStaticRequest) {
+      const userJson = localStorage.getItem('fb_helpdesk_user');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        if (user && user.token) {
+          config.headers.Authorization = `Bearer ${user.token}`;
+        }
       }
     }
+
     return config;
   },
   (error) => Promise.reject(error)
