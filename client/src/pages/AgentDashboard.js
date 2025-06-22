@@ -31,13 +31,17 @@ const AgentDashboard = () => {
     }
     
     // Connect to socket server with token-based authentication
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-    const newSocket = io(API_URL, {
+    const API_URL = process.env.REACT_APP_API_URL || 'https://fhelpdesk.onrender.com';
+        const newSocket = io(API_URL, {
+      transports: ['polling'], // 👈 ensure polling fallback
+      withCredentials: true,
       auth: {
         token: user.token
       }
     });
+
     
+   
     newSocket.on('connect', () => {
       console.log('Connected to socket server');
     });
